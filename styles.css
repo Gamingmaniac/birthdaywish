@@ -1,0 +1,213 @@
+/* General Styles */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFB6C1; /* Light Pink */
+    overflow: hidden; /* Prevent scrolling */
+}
+
+/* Envelope Container */
+.envelope {
+    position: relative;
+    width: 500px;
+    height: 300px;
+    cursor: pointer;
+}
+
+/* Envelope Body */
+.envelope .body {
+    position: absolute;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-left: 250px solid transparent;
+    border-right: 250px solid transparent;
+    border-bottom: 120px solid #ca0b0c; /* Light gray for the envelope body */
+    z-index: 3; /* Body above the paper and flap */
+}
+
+/* Envelope Flap */
+.envelope .flap {
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-left: 250px solid transparent;
+    border-right: 250px solid transparent;
+    border-top: 180px solid red; /* Slightly darker gray for the flap */
+    transform-origin: top;
+    transition: transform 0.5s ease, z-index 0.5s ease; /* Add z-index transition */
+    z-index: 2; /* Flap above the paper initially */
+}
+
+/* Left Fold */
+.envelope .left-fold {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 250px solid #b40404; /* Light gray for the fold */
+    border-top: 180px solid transparent;
+    border-bottom: 120px solid transparent;
+    z-index: 3; /* Left fold above the paper and flap */
+}
+
+/* Right Fold */
+.envelope .right-fold {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-right: 250px solid #b40404; /* Light gray for the fold */
+    border-top: 180px solid transparent;
+    border-bottom: 120px solid transparent;
+    z-index: 3; /* Right fold above the paper and flap */
+}
+
+/* Paper inside the envelope */
+.envelope .paper {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    width: 500px;
+    height: 300px;
+    background-color: beige;
+    transform: translateX(-50%) translateY(100%);
+    transition: transform 0.5s ease 0.3s, z-index 0.5s ease 0.3s;
+    z-index: 1;
+    cursor: pointer; /* Ensure the paper is clickable everywhere */
+}
+
+/* Open Flap Animation */
+/* Opening Animation (No Changes) */
+.envelope.open .flap {
+    transform: rotateX(180deg);
+    z-index: 1;
+    transition: transform 0.5s ease, z-index 0.5s ease;
+}
+
+.envelope.open .paper {
+    transform: translateX(-50%) translateY(70%);
+    z-index: 2;
+    transition: transform 0.5s ease 0.3s, z-index 0.5s ease 0.3s;
+}
+
+/* Closing Animation (Fix applied) */
+.envelope:not(.open) .paper {
+    transform: translateX(-50%) translateY(100%); /* Move paper down first */
+    z-index: 1;
+    transition: transform 0.5s ease, z-index 0.5s ease;
+}
+
+.envelope:not(.open) .flap {
+    transform: rotateX(0deg); /* Close flap after paper */
+    z-index: 2;
+    transition: transform 0.5s ease 0.3s, z-index 0.5s ease 0.3s;
+}
+
+/* Hearts Container */
+.hearts-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allow clicks to pass through */
+}
+
+/* Heart Style */
+.heart {
+    position: absolute;
+    bottom: 0;
+    color: #ff6b6b; /* Red heart color */
+    font-size: 30px;
+    opacity: 0; /* Start as invisible */
+    animation: floatUp 3s ease-in-out forwards, fadeIn 3s ease-in-out forwards; /* Increased duration */
+}
+
+/* Heart Floating Animation */
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh) scale(0.5); /* Go up until it's off-screen */
+        opacity: 0;
+    }
+}
+
+/* Heart Fade-In Animation */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.paper-text {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    font-weight: bold;
+    color: #b40404; /* Red text */
+    cursor: pointer;
+    text-align: center;
+}
+
+/* Styles for the white paper */
+.white-paper {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20%;
+    padding: 210px;
+    background-color: white;
+    border: 2px solid #ca0b0c; /* Optional border for the paper */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 999; /* Ensure it appears above the overlay */
+    font-family: 'Arial', sans-serif; /* Font for the letter */
+    display: none; /* Hidden by default */
+}
+
+/* Styles for the overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+    z-index: 998; /* Overlay below the paper */
+    display: none; /* Hidden by default */
+}
+
+/* Styling the heading inside the letter */
+.letter-heading {
+    font-size: 28px;
+    color: #b40404; /* Red color */
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Styling the content inside the letter */
+.letter-content {
+    font-size: 20px;
+    line-height: 1.6;
+    color: #333; /* Dark gray for readability */
+    text-align: center;
+    margin: 20px 0;
+    font-family: 'Georgia', serif; /* Serif font for the body of the letter */
+}

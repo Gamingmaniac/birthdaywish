@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Envelope Animation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="envelope" onclick="toggleEnvelope()">
+        <div class="flap"></div>
+        <div class="body"></div>
+        <div class="left-fold"></div>
+        <div class="right-fold"></div>
+        <!-- Paper inside the envelope -->
+        <div class="paper" onclick="showPaperAndOverlay(event)">
+    	    <p class="paper-text">Click On Me</p>
+        </div>
+    </div>
+
+    <!-- Hearts container -->
+    <div class="hearts-container">
+        <!-- Hearts will be dynamically added here -->
+    </div>
+
+    <audio id="music" src="music.mp3" preload="auto"></audio> <!-- Replace 'music.mp3' with your file path -->
+
+    <script src="script.js"></script>
+</body>
+</html>
